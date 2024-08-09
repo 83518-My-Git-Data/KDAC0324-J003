@@ -9,4 +9,6 @@ public interface UserService {
 	ApiResponse saveUser(UserRequestDto userdto);
 
 	ApiResponse authenticateUser(LoginRequestDto dto);
+	public void generateResetToken(String email);
+	public void resetPassword(String token, String newPassword);
 }

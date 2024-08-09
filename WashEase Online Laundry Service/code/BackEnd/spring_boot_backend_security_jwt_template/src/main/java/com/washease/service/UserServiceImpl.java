@@ -22,6 +22,9 @@ import com.washease.entities.User;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao udao;
+    
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private ModelMapper mapper;
@@ -50,6 +53,39 @@ public class UserServiceImpl implements UserService {
             }
         } else {
             return new ApiResponse("Authentication failed: User not found.");
+        }
+    }
+    
+    public void generateResetToken(String email) {
+        Optional<User> userOptional = udao.findByEmail(email);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            String token = UUID.randomUUID().toString();
+            user.setResetToken(token);
+            user.setResetTokenExpiry(new Date(System.currentTimeMillis() + 3600000)); // 1 hour expiry
+            udao.save(user);
+            
+            // Send the reset token via email
+            emailService.sendResetTokenEmail(email, token);
+        } else {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+    }
+    
+    public void resetPassword(String token, String newPassword) {
+        Optional<User> userOptional = udao.findByResetToken(token);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            if (user.getResetTokenExpiry().after(new Date())) {
+                user.setPassword(passwordEncoder.encode(newPassword)); // Encode the new password before saving
+                user.setResetToken(null);
+                user.setResetTokenExpiry(null);
+                udao.save(user);
+            } else {
+                throw new RuntimeException("Reset token has expired.");
+            }
+        } else {
+            throw new RuntimeException("Invalid reset token.");
         }
     }
 
