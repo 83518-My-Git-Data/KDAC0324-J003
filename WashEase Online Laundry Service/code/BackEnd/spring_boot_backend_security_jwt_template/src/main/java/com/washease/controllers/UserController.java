@@ -49,8 +49,6 @@ public class UserController {
         System.out.println("in signin " + request);
         return ResponseEntity.ok(uservice.authenticateUser(request));
     }
-    
-    
 
    
 }
