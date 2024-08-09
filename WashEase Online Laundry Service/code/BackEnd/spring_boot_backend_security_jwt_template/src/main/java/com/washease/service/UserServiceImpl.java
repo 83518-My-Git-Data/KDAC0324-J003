@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.washease.dao.UserDao;
 import com.washease.dto.ApiResponse;
+import com.washease.dto.LoginRequestDto;
 import com.washease.dto.UserRequestDto;
 import com.washease.entities.User;
 
@@ -37,6 +38,20 @@ public class UserServiceImpl implements UserService {
         return new ApiResponse("User Registered for Id: " + savedUser.getUserId());
     }
 
+    @Override
+    public ApiResponse authenticateUser(LoginRequestDto dto) {
+        Optional<User> userOptional = udao.findByEmail(dto.getEmail());
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            if (passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
+                return new ApiResponse("User Logged In with Id: " + user.getUserId());
+            } else {
+                return new ApiResponse("Authentication failed: Invalid Email or Password.");
+            }
+        } else {
+            return new ApiResponse("Authentication failed: User not found.");
+        }
+    }
 
    
 }

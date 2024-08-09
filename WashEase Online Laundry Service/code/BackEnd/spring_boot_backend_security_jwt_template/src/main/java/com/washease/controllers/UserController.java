@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.washease.dto.LoginRequestDto;
 import com.washease.dto.UserRequestDto;
 import com.washease.service.UserService;
 
@@ -28,6 +29,12 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
+    }
+    
+    @PostMapping("/login")
+    public ResponseEntity<?> signInUser(@RequestBody @Valid LoginRequestDto request) {
+        System.out.println("in signin " + request);
+        return ResponseEntity.ok(uservice.authenticateUser(request));
     }
 
    
