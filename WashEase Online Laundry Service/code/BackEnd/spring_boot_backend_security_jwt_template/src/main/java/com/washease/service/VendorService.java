@@ -10,15 +10,9 @@ import com.washease.entities.Vendor;
 public interface VendorService {
 	public List<VendorDto> getVendorsByPinCode(String pinCode);
 
-
 	List<OrderDto> getOrdersByVendorId(Long vendorId);
 
 	OrderDto updateOrder(OrderDto orderDto);
 
 	void deleteOrder(Long orderId);
-	
-	
-   
-
-
 }
