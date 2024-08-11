@@ -22,8 +22,7 @@ public class Vendor {
     @Column(nullable = false, unique = true)
     private String vendorName;
 
-    @Column(nullable = false)
-    private String vendorContactPerson;
+   
 
  //   @OneToMany
   //  @JoinColumn(name = "order_id", nullable = false)
