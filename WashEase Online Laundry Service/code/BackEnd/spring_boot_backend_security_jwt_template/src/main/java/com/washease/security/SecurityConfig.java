@@ -35,9 +35,7 @@ public class SecurityConfig {
 		.exceptionHandling().authenticationEntryPoint(authEntry).
 		and().
 		authorizeRequests()
-    	.antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**", "/user/**", "/vendor/**","/admin/**","/users/**","/address/**").permitAll()
-        .antMatchers("/vendordashboard/**").hasRole("VENDOR")
-        .antMatchers( "/homepage/**").hasRole("USER")
+		.antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**", "/user/**", "/vendor/**","/admin/**","/users/**","/address/**", "/homepage/**", "/vendordashboard/**","/cloths/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()// Allow access to Swagger UI and registration endpoint
                 .anyRequest().authenticated() // Require authentication for other endpoints
             .and()

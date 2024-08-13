@@ -59,6 +59,7 @@ public class VendorServiceImpl implements VendorService {
 
 
 
+
 	 @Override
 	    public Vendor updateVendor(Long id, Vendor updatedVendor) {
 	        Optional<Vendor> vendorOpt = vendordao.findById(id);
@@ -71,7 +72,7 @@ public class VendorServiceImpl implements VendorService {
 	        }
 	        return null;
 	    }
-
+	 
 	
 	@Override
 	public OrderDto updateOrder(OrderDto orderDto) {
