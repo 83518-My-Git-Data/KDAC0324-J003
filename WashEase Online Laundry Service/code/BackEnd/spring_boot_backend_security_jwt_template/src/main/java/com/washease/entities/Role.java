@@ -1,5 +1,5 @@
 package com.washease.entities;
 
 public enum Role {
-	USER,VENDOR
+	ROLE_USER,ROLE_VENDOR
 }

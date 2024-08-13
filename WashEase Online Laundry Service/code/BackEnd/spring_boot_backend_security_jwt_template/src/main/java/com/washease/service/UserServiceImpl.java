@@ -1,8 +1,10 @@
 package com.washease.service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -13,8 +15,10 @@ import org.springframework.stereotype.Service;
 
 import com.washease.dao.UserDao;
 import com.washease.dto.ApiResponse;
+import com.washease.dto.EditUserDto;
 import com.washease.dto.LoginRequestDto;
 import com.washease.dto.UserRequestDto;
+import com.washease.dto.UserResponseDto;
 import com.washease.entities.User;
 
 @Service
@@ -72,6 +76,14 @@ public class UserServiceImpl implements UserService {
         }
     }
     
+    @Override
+    public List<UserResponseDto> getAllUsers() {
+        List<User> users = udao.findAll();
+        return users.stream()
+                    .map(user -> mapper.map(user, UserResponseDto.class))
+                    .collect(Collectors.toList());
+    }
+    
     public void resetPassword(String token, String newPassword) {
         Optional<User> userOptional = udao.findByResetToken(token);
         if (userOptional.isPresent()) {
@@ -89,5 +101,19 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    
+    @Override
+    public User updateUser(Long id, EditUserDto editUserDto) {
+        User user = udao.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        user.setUsername(editUserDto.getUsername());
+        user.setEmail(editUserDto.getEmail());
+        user.setPhoneNumber(editUserDto.getPhoneNumber());
+        return udao.save(user);
+    }
+    
+    @Override
+    public void deleteUser(Long id) {
+    	udao.deleteById(id);
+    }
    
 }

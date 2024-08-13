@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
-
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,14 +20,13 @@ public class Vendor {
     @Column(nullable = false, unique = true)
     private String vendorName;
 
-   
 
  //   @OneToMany
   //  @JoinColumn(name = "order_id", nullable = false)
   //  private List<Order> orders;
 
-    @OneToMany(mappedBy = "vendor",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<User> users;
+//    @OneToMany(mappedBy = "vendor",cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<User> users;
   
 
     @Column(nullable = false)

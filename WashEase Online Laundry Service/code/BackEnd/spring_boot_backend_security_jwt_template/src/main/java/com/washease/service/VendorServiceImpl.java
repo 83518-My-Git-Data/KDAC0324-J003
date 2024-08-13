@@ -59,6 +59,18 @@ public class VendorServiceImpl implements VendorService {
 
 
 
+	 @Override
+	    public Vendor updateVendor(Long id, Vendor updatedVendor) {
+	        Optional<Vendor> vendorOpt = vendordao.findById(id);
+	        if (vendorOpt.isPresent()) {
+	            Vendor vendor = vendorOpt.get();
+	            vendor.setVendorName(updatedVendor.getVendorName());
+	            vendor.setVendorAddress(updatedVendor.getVendorAddress());
+	            // Update other fields as necessary
+	            return vendordao.save(vendor);
+	        }
+	        return null;
+	    }
 
 	
 	@Override
@@ -86,8 +98,17 @@ public class VendorServiceImpl implements VendorService {
 
 
 	
+	 @Override
+	    public void deleteVendor(Long id) {
+		 vendordao.deleteById(id);
+	    }
 	
-	
+	 @Override
+	    public List<Vendor> getAllVendors() {
+	        return vendordao.findAll();
+	    }
+
+
 
    
 }
