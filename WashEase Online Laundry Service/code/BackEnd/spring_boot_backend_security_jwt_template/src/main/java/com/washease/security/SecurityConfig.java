@@ -28,47 +28,51 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//    	http.cors()
-//		.and().
-//		//disable CSRF token generation n verification
-//		csrf()	.disable()
-//		.exceptionHandling().authenticationEntryPoint(authEntry).
-//		and().
-//		authorizeRequests()
-//                .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**", "/user/*","/homepage/*","/address/*").permitAll()
-//                .antMatchers(HttpMethod.OPTIONS).permitAll()// Allow access to Swagger UI and registration endpoint
-//                .anyRequest().authenticated() // Require authentication for other endpoints
-//            .and()
-//            .formLogin().permitAll() // Enable form login and permit all to access the login page
-//            .and()
-//            .logout().permitAll().and()
-//    		//inserting jwt filter before sec filter
-//    		.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-//    	; // Allow everyone to access the logout endpoint
-//        return http.build();
+    	http.cors()
+		.and().
+		//disable CSRF token generation n verification
+		csrf()	.disable()
+		.exceptionHandling().authenticationEntryPoint(authEntry).
+		and().
+		authorizeRequests()
+    	.antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**", "/user/**", "/vendor/**","/admin/**","/users/**").permitAll()
+        .antMatchers("/vendordashboard/**").hasRole("VENDOR")
+        .antMatchers("/address/**", "/homepage/**").hasRole("USER")
+                .antMatchers(HttpMethod.OPTIONS).permitAll()// Allow access to Swagger UI and registration endpoint
+                .anyRequest().authenticated() // Require authentication for other endpoints
+            .and()
+            .formLogin().permitAll() // Enable form login and permit all to access the login page
+            .and()
+            .logout().permitAll().and()
+    		//inserting jwt filter before sec filter
+    		.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+    	; // Allow everyone to access the logout endpoint
+        return http.build();
     	
     	
-    	
-    	 http.cors()
-         .and()
-         .csrf().disable()
-         .exceptionHandling().authenticationEntryPoint(authEntry)
-         .and()
-         .authorizeRequests()
-             // Permit access to specific endpoints without authentication
-             .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**", "/user/**", "/homepage/**", "/address/**","/selectvendor/**","/vendordashboard/**").permitAll()
-             // Allow access to OPTIONS method (useful for CORS preflight requests)
-             .antMatchers(HttpMethod.OPTIONS).permitAll()
-             // All other endpoints require authentication
-             .anyRequest().authenticated()
-         .and()
-         .formLogin().permitAll()
-         .and()
-         .logout().permitAll()
-         .and()
-         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-     
-     return http.build();
+//    	
+//    	 http.cors()
+//         .and()
+//         .csrf().disable()
+//         .exceptionHandling().authenticationEntryPoint(authEntry)
+//         .and()
+//         .authorizeRequests()
+//             // Permit access to specific endpoints without authentication
+//             .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**", "/user/**", "/vendor/**","/admin/**").permitAll()
+//             .antMatchers("/vendordashboard/**").hasRole("VENDOR")
+//             .antMatchers("/address/**", "/homepage/**").hasRole("USER")
+//             // Allow access to OPTIONS method (useful for CORS preflight requests)
+//             .antMatchers(HttpMethod.OPTIONS).permitAll()
+//             // All other endpoints require authentication
+//             .anyRequest().authenticated()
+//         .and()
+//         .formLogin().permitAll()
+//         .and()
+//         .logout().permitAll()
+//         .and()
+//         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+//     
+//     return http.build();
     }
     
     @Bean

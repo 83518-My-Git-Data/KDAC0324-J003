@@ -1,13 +1,6 @@
 package com.washease.dto;
 
-import java.sql.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.OneToMany;
-
-import com.washease.entities.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
