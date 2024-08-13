@@ -38,6 +38,11 @@ public class VendorServiceImpl implements VendorService {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	@Override
+    public void registerVendor(VendorDto vendorDto) {
+        Vendor vendor = modelMapper.map(vendorDto, Vendor.class);
+        vendordao.save(vendor);
+    }
 
 
 	public List<VendorDto> getVendorsByPinCode(String pinCode) {
