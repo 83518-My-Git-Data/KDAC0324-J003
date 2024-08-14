@@ -6,6 +6,7 @@ import Landingpage from './components/Landingpage';
 import AddToCartPage from './components/AddToCartPage';
 import VendorSelection from './components/VendorSelection';
 import AdminPage from './components/admin';
+import OrderPlaced from './components/OrderPlaced';
 function App() {
   return (
     <div className="App">
@@ -15,7 +16,7 @@ function App() {
       <Route path="/add-to-cart-page" element={<AddToCartPage />} />
       <Route path="/vendor-selection" element={<VendorSelection />} />
       <Route path="/admin" element={<AdminPage />} />
-      
+      <Route path="/order-placed" element={<OrderPlaced />} /> 
     </div>
   );
 }
