@@ -23,8 +23,8 @@ import com.washease.dto.UserRequestDto;
 import com.washease.security.JwtUtils;
 import com.washease.service.UserService;
 
-@RestController
 @CrossOrigin(origins = "*")
+@RestController
 @RequestMapping("/user")
 public class UserController {
 	

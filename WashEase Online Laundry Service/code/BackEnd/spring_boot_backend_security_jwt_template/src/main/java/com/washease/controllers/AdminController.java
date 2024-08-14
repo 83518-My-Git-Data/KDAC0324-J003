@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
@@ -29,7 +30,7 @@ public class AdminController {
     
 
     // Endpoint to delete a vendor by ID
-    @DeleteMapping("/vendor/{id}")
+    @DeleteMapping("/deleteVendor/{id}")
     public ResponseEntity<String> deleteVendor(@PathVariable Long id) {
         try {
             vendorService.deleteVendor(id);
@@ -40,7 +41,7 @@ public class AdminController {
     }
 
     // Endpoint to edit a vendor's details
-    @PutMapping("/vendor/{id}")
+    @PutMapping("/editVendor/{id}")
     public ResponseEntity<Vendor> editVendor(@PathVariable Long id, @RequestBody Vendor updatedVendor) {
         try {
             Vendor vendor = vendorService.updateVendor(id, updatedVendor);
@@ -51,7 +52,7 @@ public class AdminController {
     }
 
     // Endpoint to delete a user by ID
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/deleteUser/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         try {
             userService.deleteUser(id);
@@ -62,7 +63,7 @@ public class AdminController {
     }
 
     // Endpoint to edit a user's details
-    @PutMapping("/user/{id}")
+    @PutMapping("/editUser/{id}")
     public ResponseEntity<UserResponseDto> editUser(@PathVariable Long id, @RequestBody EditUserDto editUserDto) {
         try {
             User updatedUser = userService.updateUser(id, editUserDto);
@@ -74,7 +75,7 @@ public class AdminController {
     }
 
 
-    @GetMapping("/users")
+    @GetMapping("/getAllUsers")
     public ResponseEntity<List<UserResponseDto>> getAllUsers() {
         try {
             List<UserResponseDto> users = userService.getAllUsers();
@@ -87,7 +88,7 @@ public class AdminController {
 
 
     // Endpoint to get all vendors
-    @GetMapping("/vendors")
+    @GetMapping("/getAllVendors")
     public ResponseEntity<List<Vendor>> getAllVendors() {
         try {
             List<Vendor> vendors = vendorService.getAllVendors();

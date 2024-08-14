@@ -15,8 +15,8 @@ import com.washease.dto.OrderDto;
 import com.washease.dto.UserPreviousOrderDto;
 import com.washease.service.OrderService;
 
-@RestController
 @CrossOrigin(origins = "*")
+@RestController
 @RequestMapping("/homepage")
 public class HomePageController {
     

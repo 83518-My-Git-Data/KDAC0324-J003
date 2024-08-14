@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
 @CrossOrigin(origins = "*")
+@RestController
 @RequestMapping("/vendordashboard")
 public class VendorDashBoardController {
 
@@ -30,7 +30,7 @@ public class VendorDashBoardController {
     }
 
 
-    @PutMapping("/order")
+    @PutMapping("/updateOrder")
     public ResponseEntity<OrderDto> updateOrder(@RequestBody OrderDto orderDto) {
         OrderDto updatedOrder = vendorService.updateOrder(orderDto);
         if (updatedOrder == null) {
@@ -39,7 +39,7 @@ public class VendorDashBoardController {
         return new ResponseEntity<>(updatedOrder, HttpStatus.OK);
     }
 
-    @DeleteMapping("/order/{orderId}")
+    @DeleteMapping("/deleteOrder/{orderId}")
     public ResponseEntity<String> deleteOrder(@PathVariable Long orderId) {
         vendorService.deleteOrder(orderId);
         return ResponseEntity.ok("User deleted successfully.");
