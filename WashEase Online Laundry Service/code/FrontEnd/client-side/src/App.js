@@ -17,6 +17,8 @@ function App() {
       <Route path="/vendor-selection" element={<VendorSelection />} />
       <Route path="/admin" element={<AdminPage />} />
       <Route path="/order-placed" element={<OrderPlaced />} /> 
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      
     </div>
   );
 }
