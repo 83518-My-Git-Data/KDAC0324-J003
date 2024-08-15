@@ -18,6 +18,7 @@ function App() {
       <Route path="/admin" element={<AdminPage />} />
       <Route path="/order-placed" element={<OrderPlaced />} /> 
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/address-page" element={<AddressPage />} />
       
     </div>
   );
